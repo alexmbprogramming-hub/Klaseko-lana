@@ -89,5 +89,4 @@ class Orrialdea {
 function botoiaSakatu() {
     let orrialdea = new Orrialdea();
     document.addEventListener("mousemove", (event) => orrialdea.movethis(event));
-    
 }
