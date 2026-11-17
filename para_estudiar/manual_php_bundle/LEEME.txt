@@ -1,0 +1,19 @@
+MANUAL INTERACTIVO DE PHP
+
+Archivos:
+- manual_php.pdf : versión imprimible para estudiar.
+- index.html : web interactiva del manual.
+- styles.css : estilos y diseño adaptable.
+- app.js : buscador y controles expandir/contraer.
+- manual.php : ejemplo opcional de backend PHP que devuelve el índice en JSON.
+
+Uso rápido:
+1. Abre index.html en el navegador. No necesita servidor para el manual estático.
+2. Usa el buscador para encontrar términos.
+3. Para probar manual.php, desde esta carpeta ejecuta: php -S localhost:8000
+   Después abre http://localhost:8000/manual.php
+4. El PDF se puede imprimir o consultar sin conexión.
+
+Nota:
+Esta es una primera versión que reúne los conceptos trabajados hasta ahora.
+GET, POST, cookies y session están expresamente pendientes para incorporarlos después.

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual interactivo de PHP</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <p class="eyebrow">Apuntes de estudio</p><h1>Manual interactivo de PHP</h1>
+  <p>Conceptos ordenados, ejemplos y chuleta de consulta rápida.</p>
+  <div class="toolbar"><input id="search" type="search" placeholder="Buscar concepto: foreach, isset, trait…" aria-label="Buscar en el manual">
+  <button id="expandAll">Expandir todo</button><button id="collapseAll">Contraer todo</button></div>
+</header>
+<div class="layout">
+<nav class="sidebar"><h2>Contenido</h2>
+<a href="#bloque-1">1. Fundamentos de PHP</a><a href="#bloque-2">2. Operadores</a><a href="#bloque-3">3. Control de flujo y bucles</a><a href="#bloque-4">4. Arrays</a><a href="#bloque-5">5. Cadenas de texto y comprobaciones</a><a href="#bloque-6">6. Funciones</a><a href="#bloque-7">7. Programación orientada a objetos (POO)</a><a href="#bloque-8">8. Excepciones y gestión de errores</a><a href="#bloque-9">9. Inclusión de archivos</a><a href="#bloque-10">10. Repaso final</a>
+<p class="note">Pendiente para más adelante: GET, POST, cookies y session.</p>
+</nav>
+<main>
+<div class="callout"><strong>Cómo usarlo:</strong> busca una palabra, abre los apartados y copia los ejemplos para practicarlos. Los ejemplos son material de estudio: ejecútalos en un entorno PHP para comprobar su salida.</div>
+<section id="bloque-1" class="manual-section"><h2>1. Fundamentos de PHP</h2><article class="topic"><h3>Estructura básica</h3><p>La etiqueta &lt;?php abre el código PHP. ?&gt; lo cierra. En archivos que contienen únicamente PHP suele omitirse el cierre para evitar espacios accidentales en la salida.</p><pre><code>&lt;?php
+// Código PHP
+?&gt;</code></pre></article><article class="topic"><h3>Instrucciones</h3><p>Las instrucciones PHP suelen terminar con punto y coma (;).</p></article><article class="topic"><h3>Variables</h3><p>Todas las variables empiezan por $. El nombre comienza por una letra o guion bajo y puede continuar con letras, números y guiones bajos. Los nombres distinguen mayúsculas y minúsculas: $izena y $Izena son variables distintas.</p><pre><code>$izena = "Ane";
+$adina = 20;</code></pre></article><article class="topic"><h3>Tipos de datos</h3><p>Tipos habituales: int/integer (entero), float (decimal), string (texto), bool/boolean (booleano), array (colección), object (objeto) y null (ausencia de valor). Los booleanos se escriben normalmente true y false. Una variable no inicializada no es lo mismo conceptualmente que una variable inicializada con null; leer una variable no definida puede generar avisos.</p></article><article class="topic"><h3>Constantes</h3><p>Las constantes se usan sin $. Pueden definirse con const o define(). Hay diferencias de contexto y disponibilidad entre ambas formas; en estos apuntes basta con reconocer ambas sintaxis.</p><pre><code>const PREZIOA = 20;
+define("MAXIMOA", 100);</code></pre></article><article class="topic"><h3>Referencias con &</h3><p>La referencia hace que ambos nombres accedan al mismo valor subyacente.</p><pre><code>$b = 10;
+$a = &amp;$b;
+$a = 20; // $b también vale 20</code></pre></article><article class="topic"><h3>Conversión de tipos (casting)</h3><p>También se encuentran las formas largas (boolean), (integer) y (double).</p><pre><code>(bool) $valor;
+(int) $valor;
+(float) $valor;
+(string) $valor;</code></pre></article><article class="topic"><h3>Comentarios</h3><p>Se usan para documentar el código; no se ejecutan como instrucciones.</p><pre><code>// Comentario de una línea
+# También comentario de una línea
+/* Comentario
+   de varias líneas */</code></pre></article></section><section id="bloque-2" class="manual-section"><h2>2. Operadores</h2><article class="topic"><h3>Aritméticos</h3><p>+, -, *, /, %, **. Los signos unarios + y - también pueden indicar el signo de un valor.</p></article><article class="topic"><h3>Comparación</h3><p>== compara con conversión de tipos cuando corresponde; === exige mismo valor y mismo tipo. También: !=, &lt;&gt;, !==, &gt;, &lt;, &gt;= y &lt;=. El operador ?? es de fusión con null, no propiamente un operador de comparación.</p></article><article class="topic"><h3>Lógicos</h3><p>and, &amp;&amp;, or, ||, xor y !. and/&amp;&amp; realizan la operación lógica AND, y or/|| la operación OR, pero tienen distinta precedencia.</p></article><article class="topic"><h3>Bit a bit</h3><p>Operan sobre bits de los enteros. No confundir &amp; y | con &amp;&amp; y ||. El resultado de ~ depende de la representación entera; en PHP habitual con enteros con signo, ~5 suele ser -6.</p><pre><code>5 &amp; 3  // 1
+5 | 3  // 7
+5 ^ 3  // 6
+~5     // complemento de bits</code></pre></article><article class="topic"><h3>Asignación e incremento</h3><p>También existe la asignación simple =. El incremento prefijo cambia el valor antes de usar la expresión; el postfijo entrega primero el valor anterior y luego incrementa.</p><pre><code>$a += 2;
+$a -= 1;
+$a *= 3;
+$a /= 2;
+$a %= 2;
+$a **= 2;
+$texto .= " añadido";
+++$a; // incremento prefijo
+$a++; // incremento postfijo
+--$a;
+$a--;</code></pre></article><article class="topic"><h3>Ternario y fusión con null</h3><p>El ternario elige un valor según una condición. ?? usa el valor de la izquierda si existe y no es null; si no, usa el de la derecha.</p><pre><code>$mensaje = $edad &gt;= 18 ? "Adulto" : "Menor";
+$nombre = $entrada ?? "Invitado";</code></pre></article></section><section id="bloque-3" class="manual-section"><h2>3. Control de flujo y bucles</h2><article class="topic"><h3>Condicional if</h3><p>Ejecuta el bloque si la condición es verdadera.</p><pre><code>if ($edad &gt;= 18) {
+    echo "Mayor de edad";
+}</code></pre></article><article class="topic"><h3>if / else / elseif</h3><p>elseif es la forma habitual en PHP; también se admite else if. Las condiciones se evalúan en orden.</p><pre><code>if ($nota &gt;= 9) {
+    echo "Excelente";
+} elseif ($nota &gt;= 5) {
+    echo "Aprobado";
+} else {
+    echo "Suspenso";
+}</code></pre></article><article class="topic"><h3>switch</h3><p>case define cada caso; break evita continuar ejecutando los casos siguientes. default es opcional. Si falta break puede producirse caída al siguiente caso.</p><pre><code>switch ($dia) {
+    case "lunes":
+        echo "Inicio";
+        break;
+    case "domingo":
+        echo "Descanso";
+        break;
+    default:
+        echo "Otro día";
+}</code></pre></article><article class="topic"><h3>for</h3><p>Tiene inicialización; condición; actualización, separados por punto y coma. Es útil cuando se conoce o controla el número de iteraciones.</p><pre><code>for ($i = 0; $i &lt; 5; $i++) {
+    echo $i;
+}</code></pre></article><article class="topic"><h3>while</h3><p>Comprueba la condición antes de ejecutar el bloque, por lo que puede ejecutarse cero veces. Actualiza la variable cuando corresponda para evitar bucles infinitos.</p><pre><code>$i = 0;
+while ($i &lt; 5) {
+    echo $i;
+    $i++;
+}</code></pre></article><article class="topic"><h3>do...while</h3><p>Comprueba la condición después del bloque, así que se ejecuta al menos una vez. La instrucción termina con punto y coma después de while.</p><pre><code>$i = 0;
+do {
+    echo $i;
+    $i++;
+} while ($i &lt; 5);</code></pre></article><article class="topic"><h3>foreach</h3><p>Recorre elementos de un array en su orden actual. La primera forma obtiene valores; la segunda obtiene clave y valor. foreach no ordena el array.</p><pre><code>foreach ($arr as $valor) {
+    echo $valor;
+}
+
+foreach ($arr as $clave =&gt; $valor) {
+    echo $clave . ": " . $valor;
+}</code></pre></article></section><section id="bloque-4" class="manual-section"><h2>4. Arrays</h2><article class="topic"><h3>Crear arrays</h3><p>array() y [] son dos formas de crear arrays.</p><pre><code>$vacio = array();
+$otroVacio = [];
+$numeros = array(7, 2, 5);
+$dias = ["Lunes", "Martes", "Miércoles"];</code></pre></article><article class="topic"><h3>Arrays indexados</h3><p>Utilizan claves numéricas; en un array creado de forma habitual los índices empiezan en 0.</p><pre><code>$dias = ["Lunes", "Martes", "Miércoles"];
+echo $dias[0]; // Lunes</code></pre></article><article class="topic"><h3>Arrays asociativos</h3><p>Cada clave (habitualmente una cadena) se asocia a un valor mediante =&gt;. Son parecidos a diccionarios o mapas.</p><pre><code>$persona = [
+    "izena" =&gt; "Ane",
+    "adina" =&gt; 20,
+    "herria" =&gt; "Irun"
+];
+echo $persona["izena"]; // Ane</code></pre></article><article class="topic"><h3>Acceder, modificar y añadir</h3><p>Si la clave no existía, asignarle un valor crea el elemento.</p><pre><code>$arr[$gakoa];           // consultar
+$arr[$gakoa] = $balioa; // modificar o crear clave</code></pre></article><article class="topic"><h3>Arrays bidimensionales</h3><p>Puede imaginarse como una tabla: el primer índice señala la fila y el segundo la columna. Ambos empiezan normalmente en 0.</p><pre><code>$cars = [
+    ["Volvo", 22, 18],
+    ["BMW", 15, 13],
+    ["Saab", 5, 2]
+];
+echo $cars[0][0]; // Volvo
+echo $cars[1][2]; // 13</code></pre></article><article class="topic"><h3>Orden de recorrido</h3><p>Los arrays PHP conservan el orden de inserción. foreach recorre ese orden actual; no ordena automáticamente. ksort ordena por clave ascendente.</p><pre><code>$users[0] = "Miren";
+$users[2] = "Kepa";
+$users[1] = "Ane";
+foreach ($users as $user) echo $user; // MirenKepaAne
+ksort($users); // ahora orden por clave: 0, 1, 2</code></pre></article><article class="topic"><h3>Funciones de arrays</h3><p>ksort(): ordena por clave ascendente. krsort(): clave descendente. sort(): valores ascendente y reindexa claves numéricas. rsort(): valores descendente y reindexa. asort()/arsort(): ordenan por valor ascendente/descendente conservando la asociación de claves. array_values(): devuelve los valores en un nuevo array indexado. array_keys(): devuelve las claves. array_key_exists(): comprueba si existe una clave incluso si su valor es null. count(): cuenta los elementos del nivel superior.</p></article></section><section id="bloque-5" class="manual-section"><h2>5. Cadenas de texto y comprobaciones</h2><article class="topic"><h3>Funciones de cadenas</h3><p>strlen($cad): longitud en bytes; para ASCII suele coincidir con número de caracteres, pero caracteres UTF-8 como letras acentuadas pueden ocupar varios bytes. explode($sep, $cad): divide una cadena y devuelve un array. implode($sep, $arr): une valores de un array en una cadena. strcmp($cad1, $cad2): comparación sensible a mayúsculas; devuelve 0 si son iguales, un número negativo si la primera cadena va antes y positivo si va después. strtolower($cad): minúsculas. strtoupper($cad): mayúsculas. str() no es la función estándar para comparar dos cadenas; probablemente se quería decir strcmp().</p></article><article class="topic"><h3>Comprobar valores</h3><p>is_null($a): comprueba si el valor es null. isset($a): true si la variable/clave existe y no es null; false si no está definida o vale null. empty($a): true para valores considerados vacíos por PHP, como "", 0, "0", false, null, [] o una variable no definida.</p></article><article class="topic"><h3>Comprobar tipos</h3><p>is_int($a): tipo entero, no una cadena numérica. is_float($a): tipo float. is_bool($a): tipo booleano. is_array($a): tipo array.</p></article></section><section id="bloque-6" class="manual-section"><h2>6. Funciones</h2><article class="topic"><h3>Definir y llamar</h3><p>function define una función; el nombre la identifica; los parámetros reciben los datos. Para ejecutarla se escribe el nombre seguido de argumentos entre paréntesis.</p><pre><code>function saludar($nombre) {
+    echo "Hola $nombre!";
+}
+saludar("Maider");</code></pre></article><article class="topic"><h3>Parámetros y argumentos</h3><p>Parámetro: variable declarada en la definición. Argumento: valor que se pasa al llamar a la función.</p></article><article class="topic"><h3>Valores predeterminados</h3><p>Si no se proporciona un argumento para ese parámetro, se usa el valor predeterminado. Los parámetros obligatorios deben colocarse antes de los opcionales.</p><pre><code>function saludar($nombre = "user") {
+    echo "Hola $nombre!&lt;br&gt;";
+}
+saludar();          // Hola user!
+saludar("Maider");  // Hola Maider!</code></pre></article><article class="topic"><h3>return y paso por valor</h3><p>Por defecto, los argumentos se pasan por valor: la función recibe una copia del valor. Si se cambia un parámetro local, la variable original no cambia por ese hecho. return devuelve el resultado.</p><pre><code>function duplicar($a) {
+    return $a * 2;
+}
+$var = 4;
+$var = duplicar($var); // 8</code></pre></article><article class="topic"><h3>Paso por referencia</h3><p>El &amp; en la definición del parámetro permite que la función modifique la variable original. No se escribe &amp; en la llamada habitual.</p><pre><code>function duplicar(&amp;$a) {
+    $a = $a * 2;
+}
+$var = 4;
+duplicar($var);
+echo $var; // 8</code></pre></article></section><section id="bloque-7" class="manual-section"><h2>7. Programación orientada a objetos (POO)</h2><article class="topic"><h3>Clases y objetos</h3><p>Una clase es un molde que define datos (atributos o propiedades) y comportamientos (métodos). Un objeto es una instancia concreta de una clase.</p><pre><code>class Klasea {
+    public $var = 'un valor predeterminado';
+
+    public function mostrarVar() {
+        echo $this-&gt;var;
+    }
+}
+$objeto = new Klasea();
+$objeto-&gt;mostrarVar();</code></pre></article><article class="topic"><h3>Crear objetos y acceder</h3><p>new crea una instancia. -&gt; permite acceder a un atributo o llamar a un método del objeto. Para acceder a un atributo no se ponen paréntesis; para llamar a un método sí.</p><pre><code>$obj = new Klasea();
+$obj-&gt;atributua;  // atributo
+$obj-&gt;metodo();   // método</code></pre></article><article class="topic"><h3>$this</h3><p>$this hace referencia al objeto actual desde un método no estático.</p></article><article class="topic"><h3>Constructor: __construct()</h3><p>Se ejecuta automáticamente al crear el objeto y suele inicializar atributos.</p><pre><code>class Pertsona {
+    public $izena;
+
+    public function __construct($izena) {
+        $this-&gt;izena = $izena;
+    }
+}
+$obj = new Pertsona("Ane");
+echo $obj-&gt;izena; // Ane</code></pre></article><article class="topic"><h3>Destructor: __destruct()</h3><p>PHP llama al destructor cuando el objeto va a ser destruido o al finalizar el script si aún existe. El momento exacto depende de las referencias que queden. Se usa, por ejemplo, para limpieza y liberación de recursos.</p><pre><code>class Pertsona {
+    public function __destruct() {
+        echo "Objeto destruido";
+    }
+}
+$obj = new Pertsona();</code></pre></article><article class="topic"><h3>Trait</h3><p>Un trait permite reutilizar métodos entre clases sin tener que copiar el mismo código. use incorpora el trait a la clase. No es lo mismo que la herencia.</p><pre><code>trait Agurtu {
+    public function agurtu() {
+        echo "Kaixo!";
+    }
+}
+
+class Pertsona {
+    use Agurtu;
+}
+
+$p = new Pertsona();
+$p-&gt;agurtu();</code></pre></article></section><section id="bloque-8" class="manual-section"><h2>8. Excepciones y gestión de errores</h2><article class="topic"><h3>try / catch</h3><p>try contiene código que puede lanzar una excepción. catch recibe y gestiona una excepción del tipo indicado. Una función llamada dentro de try también puede lanzarla.</p><pre><code>try {
+    // código que puede lanzar una excepción
+} catch (Exception $e) {
+    // gestionar el problema
+}</code></pre></article><article class="topic"><h3>Lanzar una excepción</h3><p>throw lanza una excepción. Si el código lanza Exception, el catch correspondiente es catch (Exception $e), no catch (Error $e).</p><pre><code>$a = 10;
+$b = 0;
+
+try {
+    if ($b == 0) {
+        throw new Exception("El segundo argumento es 0");
+    }
+    $value = $a / $b;
+} catch (Exception $e) {
+    echo $e-&gt;getMessage();
+}</code></pre></article><article class="topic"><h3>finally</h3><p>finally se usa para tareas que deben realizarse al terminar el bloque try/catch, por ejemplo liberar recursos. Normalmente se ejecuta aunque haya una excepción o un return, salvo terminaciones abruptas del proceso.</p></article><article class="topic"><h3>Error, Exception y Throwable</h3><p>Error no hereda de Exception. catch (Error $e) captura errores de ese tipo; catch (Exception $e) captura excepciones. Ambos implementan la interfaz Throwable, por lo que catch (Throwable $e) puede capturar ambos.</p></article></section><section id="bloque-9" class="manual-section"><h2>9. Inclusión de archivos</h2><article class="topic"><h3>include y require</h3><p>Permiten incluir y ejecutar el código de otro archivo en ese punto. Si include no encuentra el archivo, normalmente emite una advertencia y el script continúa. Si require falla, se produce un error que detiene la ejecución normal.</p></article><article class="topic"><h3>Variantes once</h3><p>include_once y require_once evitan incluir el mismo archivo más de una vez durante la ejecución del script. Si el archivo está en otra carpeta, utiliza una ruta adecuada.</p></article></section><section id="bloque-10" class="manual-section"><h2>10. Repaso final</h2><article class="topic"><h3>Diferencias clave</h3><p>== compara valores con posible conversión; === compara valor y tipo. isset() es false para null; array_key_exists() puede ser true aunque la clave tenga null. foreach recorre en el orden actual; no ordena. sort()/rsort() reindexan claves numéricas; asort()/arsort() conservan la asociación. include suele permitir continuar tras una advertencia; require detiene la ejecución normal ante un fallo. Paso por valor no cambia la variable original; paso por referencia puede hacerlo.</p></article><article class="topic"><h3>Chuleta rápida</h3><p>new crea objetos; -&gt; accede a miembros; $this representa el objeto actual; __construct() inicializa; __destruct() sirve para limpieza; trait + use reutiliza código entre clases; try/catch gestiona excepciones; finally sirve para limpieza; function define una función; return devuelve un valor.</p></article></section>
+<section class="manual-section" id="esquema"><h2>Esquema general</h2>
+<div class="map">
+<div class="map-node main-node">PHP</div>
+<div class="map-grid">
+<div class="map-node">Fundamentos<br><small>variables · tipos · constantes</small></div>
+<div class="map-node">Operadores<br><small>comparar · calcular · asignar</small></div>
+<div class="map-node">Control de flujo<br><small>if · switch · bucles</small></div>
+<div class="map-node">Arrays<br><small>claves · valores · ordenación</small></div>
+<div class="map-node">Cadenas y checks<br><small>texto · isset · tipos</small></div>
+<div class="map-node">Funciones<br><small>parámetros · return · referencias</small></div>
+<div class="map-node">POO<br><small>clases · objetos · traits</small></div>
+<div class="map-node">Errores y archivos<br><small>try/catch · include/require</small></div>
+</div></div>
+</section>
+<footer>Manual de PHP · versión inicial · ampliar a medida que se estudien nuevos temas.</footer>
+</main></div>
+<script src="app.js"></script>
+</body></html>
