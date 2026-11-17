@@ -10,7 +10,6 @@ function cambiarColor(event) {
     const formulario = document.getElementById("formulario");
     const elements = formulario.elements;
     const karratuak = document.getElementsByClassName("cuadrado");
-    console.log(karratuak);
     
     if(elements["selectCuadrado"].value == "default" && elements["selectColor"].value == "default") {
         alert("No se ha seleccionado ni el tipo de cuadrado ni su color");
@@ -23,10 +22,11 @@ function cambiarColor(event) {
     }
     else {
         let numberCuadrado = elements["selectCuadrado"].value;
-        console.log(numberCuadrado);
         const zeinKarratu = karratuak[numberCuadrado];
         zeinKarratu.style.backgroundColor = elements["selectColor"].value;
     }
+    console.log(karratuak[1].classList);
 }
 
 init();
+
