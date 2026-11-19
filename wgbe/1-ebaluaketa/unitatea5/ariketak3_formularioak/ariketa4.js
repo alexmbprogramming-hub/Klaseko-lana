@@ -18,11 +18,11 @@ let probintzia_laukia = formulario_elements['probintzia'];
 function konprobatu(event) {
     event.preventDefault();
     let baliozkoa = true;
-    let izenaRegEx = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/;
-    let helbideaRegEx = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook|yahoo)\.(com|es|net)$/;
-    let herriaRegEx = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
+    let izenaRegEx = /^[a-zA-Z]+$/;
+    let helbideaRegEx = /^[a-zA-Z0-9]+@(gmail|hotmail|outlook|yahoo)\.(com|es|net)$/;
+    let herriaRegEx = /^[a-zA-Z]+$/;
     let postaRegEx = /^[0-9]{5}$/;
-    let probintziaRegEx = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$/;
+    let probintziaRegEx = /^[a-zA-Z]+$/;
 
     if (!izenaRegEx.test(izena_laukia.value)) {
         izena_laukia.style.backgroundColor = "red";
